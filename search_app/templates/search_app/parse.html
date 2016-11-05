@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indexing</title>
+
+    {% load staticfiles %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'search_app/style.css' %}" />
+
+    <style>
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+input[type=checkbox]{
+        zoom: 1.5;
+        }
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+    </style>
+    {% include "search_app/bootstrap.html" %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.js"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.css"/>
+    <script>
+        function goToSearch() {
+            var query = document.getElementById("search_field").textContent;
+            alert(query);
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+        <div class="col-md-8 col-md-offset-2">
+    		<h3>Add url to index</h3>
+            <form class = "bs-example bs-example-form" role = "form" action="/indexing" enctype="multipart/form-data" method="post">
+                 {% csrf_token %}
+                <div id="custom-search-input" class="form-group">
+                    <div class="input-group col-md-12">
+                        <input id="query" name="url" type="url" class="form-control input-sm" placeholder="Type here"/>
+                        <span class="input-group-btn">
+                            <label class="btn btn-default btn-file">
+                                <i class="glyphicon glyphicon-file"></i> <input name="file" type="file" style="display: none;">
+                            </label>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-3">
+                        <input id="depth_limit" name="depth_limit" type="number" class="form-control input-sm" placeholder="Depth limit" required/>
+                    </div>
+                    <div class="col-xs-3">
+                        <input id="width_limit" name="width_limit" type="number" class="form-control input-sm" placeholder="Width limit" required/>
+                    </div>
+                    <div class="col-xs-3">
+                        <input id="delay" name="delay" class="form-control input-sm" placeholder="delay between requests"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <label>
+                            <input id="one_domain" name="one_domain" type="checkbox" checked="True"/>
+                            <font size="3">One domain?</font>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    <input type="submit" class="btn btn-success">
+                </div>
+            </form>
+
+        </div>
+	</div>
+</div>
+</body>
+</html>
